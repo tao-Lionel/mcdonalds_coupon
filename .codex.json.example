@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "mcdonalds-coupon": {
+      "command": "python",
+      "args": [
+        "这里填写 mcd_server.py 的绝对路径"
+      ],
+      "env": {
+        "MCD_MCP_TOKEN": "这里填写你的 token"
+      }
+    }
+  }
+}
