@@ -43,19 +43,53 @@ MCD_MCP_TOKEN=your_token_here
 
 ### 方法一：使用 claude mcp 命令（推荐）
 
-使用 Claude Code CLI 的 MCP 命令进行配置：
+使用 Claude Code CLI 的 MCP 命令进行配置。支持三种配置范围：
+
+#### 用户级配置（全局可用，推荐）
 
 ```bash
-# 交互式添加 MCP 服务器
-claude mcp add mcdonalds-coupon
+claude mcp add -s user -e MCD_MCP_TOKEN=你的token mcdonalds-coupon -- python "/path/to/mcd_server.py"
 ```
 
-按照提示输入：
-- **Command**: `python`
-- **Args**: `mcd_server.py` 的绝对路径（如 `E:/Github/mcdonalds_coupon/mcd_server.py`）
-- **Environment**: `MCD_MCP_TOKEN=你的token`
+配置后需要手动添加环境变量到 `~/.claude.json`：
 
-其他有用的 MCP 命令：
+```json
+{
+  "mcpServers": {
+    "mcdonalds-coupon": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["/path/to/mcd_server.py"],
+      "env": {
+        "MCD_MCP_TOKEN": "你的token"
+      }
+    }
+  }
+}
+```
+
+#### 项目级配置（仅当前项目）
+
+```bash
+# 在项目目录下执行
+claude mcp add -s project -e MCD_MCP_TOKEN=你的token mcdonalds-coupon -- python "/path/to/mcd_server.py"
+```
+
+#### 本地级配置（默认方式）
+
+```bash
+claude mcp add -e MCD_MCP_TOKEN=你的token mcdonalds-coupon -- python "/path/to/mcd_server.py"
+```
+
+#### 配置范围对比
+
+| 配置方式 | 作用范围 | 推荐场景 |
+|---------|---------|---------|
+| 用户级 (`-s user`) | 所有项目 | **推荐**，多项目共用 |
+| 项目级 (`-s project`) | 仅当前项目 | 项目特定配置 |
+| 本地级（默认） | 当前位置 | 快速测试 |
+
+#### 其他有用的 MCP 命令
 
 | 命令 | 说明 |
 |------|------|
