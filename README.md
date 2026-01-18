@@ -41,7 +41,31 @@ MCD_MCP_TOKEN=your_token_here
 
 ## 配置 MCP 服务
 
-### 方法一：使用环境变量（推荐）
+### 方法一：使用 claude mcp 命令（推荐）
+
+使用 Claude Code CLI 的 MCP 命令进行配置：
+
+```bash
+# 交互式添加 MCP 服务器
+claude mcp add mcdonalds-coupon
+```
+
+按照提示输入：
+- **Command**: `python`
+- **Args**: `mcd_server.py` 的绝对路径（如 `E:/Github/mcdonalds_coupon/mcd_server.py`）
+- **Environment**: `MCD_MCP_TOKEN=你的token`
+
+其他有用的 MCP 命令：
+
+| 命令 | 说明 |
+|------|------|
+| `claude mcp list` | 列出所有已配置的 MCP 服务器 |
+| `claude mcp remove <name>` | 移除指定的 MCP 服务器 |
+| `claude mcp enable <name>` | 启用某个 MCP 服务器 |
+| `claude mcp disable <name>` | 禁用某个 MCP 服务器 |
+| `claude mcp edit` | 编辑 MCP 配置文件 |
+
+### 方法二：手动编辑配置文件
 
 在 Claude Code 的配置文件中添加：
 
@@ -60,10 +84,6 @@ MCD_MCP_TOKEN=your_token_here
 ```
 
 参考 `.codex.json.example` 文件。
-
-### 方法二：使用 .env 文件
-
-确保 `.env` 文件与 `mcd_server.py` 在同一目录。
 
 ## MCP 工具列表
 
