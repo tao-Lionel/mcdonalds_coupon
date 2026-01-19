@@ -1,5 +1,10 @@
 # 麦当劳优惠券 MCP 服务器
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
+> **免责声明**：本项目为非官方第三方工具，与麦当劳中国及其关联公司无关。麦当劳和相关商标归各自所有者所有。
+
 基于 FastMCP 框架的麦当劳麦麦省优惠券管理工具，可集成到 Claude Code CLI 中使用。
 
 ## 功能特性
@@ -10,12 +15,27 @@
 - 查询麦当劳活动日历
 - 获取服务器当前时间
 
+## 🤖 给 AI 使用（一键安装）
+
+将以下内容复制给 AI，即可自动完成克隆、安装和配置：
+
+```
+请帮我安装麦当劳优惠券 MCP 服务器：
+
+1. 克隆仓库：git clone https://github.com/tao-Lionel/mcdonalds_coupon.git && cd mcdonalds_coupon
+2. 安装依赖：pip install mcp requests
+3. 配置 MCP（用户级）：claude mcp add -s user mcdonalds-coupon -- python "$(pwd)/mcd_server.py"
+4. 编辑配置添加 Token：claude mcp edit，在 mcdonalds-coupon 配置中添加环境变量 MCD_MCP_TOKEN
+
+Token 获取地址：https://open.mcd.cn/mcp
+```
+
 ## 安装
 
 ### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/yourusername/mcdonalds_coupon.git
+git clone https://github.com/tao-Lionel/mcdonalds_coupon.git
 cd mcdonalds_coupon
 ```
 
@@ -33,7 +53,7 @@ pip install mcp requests
 cp .env.example .env
 ```
 
-编辑 `.env` 文件，填入你的 Token（从 [https://mcp.mcd.cn](https://mcp.mcd.cn) 获取）：
+编辑 `.env` 文件，填入你的 Token（从 [https://open.mcd.cn/mcp](https://open.mcd.cn/mcp) 获取）：
 
 ```bash
 MCD_MCP_TOKEN=your_token_here
@@ -83,21 +103,21 @@ claude mcp add -e MCD_MCP_TOKEN=你的token mcdonalds-coupon -- python "/path/to
 
 #### 配置范围对比
 
-| 配置方式 | 作用范围 | 推荐场景 |
-|---------|---------|---------|
-| 用户级 (`-s user`) | 所有项目 | **推荐**，多项目共用 |
-| 项目级 (`-s project`) | 仅当前项目 | 项目特定配置 |
-| 本地级（默认） | 当前位置 | 快速测试 |
+| 配置方式              | 作用范围   | 推荐场景             |
+| --------------------- | ---------- | -------------------- |
+| 用户级 (`-s user`)    | 所有项目   | **推荐**，多项目共用 |
+| 项目级 (`-s project`) | 仅当前项目 | 项目特定配置         |
+| 本地级（默认）        | 当前位置   | 快速测试             |
 
 #### 其他有用的 MCP 命令
 
-| 命令 | 说明 |
-|------|------|
-| `claude mcp list` | 列出所有已配置的 MCP 服务器 |
-| `claude mcp remove <name>` | 移除指定的 MCP 服务器 |
-| `claude mcp enable <name>` | 启用某个 MCP 服务器 |
-| `claude mcp disable <name>` | 禁用某个 MCP 服务器 |
-| `claude mcp edit` | 编辑 MCP 配置文件 |
+| 命令                        | 说明                        |
+| --------------------------- | --------------------------- |
+| `claude mcp list`           | 列出所有已配置的 MCP 服务器 |
+| `claude mcp remove <name>`  | 移除指定的 MCP 服务器       |
+| `claude mcp enable <name>`  | 启用某个 MCP 服务器         |
+| `claude mcp disable <name>` | 禁用某个 MCP 服务器         |
+| `claude mcp edit`           | 编辑 MCP 配置文件           |
 
 ### 方法二：手动编辑配置文件
 
@@ -121,20 +141,20 @@ claude mcp add -e MCD_MCP_TOKEN=你的token mcdonalds-coupon -- python "/path/to
 
 ## MCP 工具列表
 
-| 工具名称 | 说明 |
-|---------|------|
+| 工具名称                  | 说明                           |
+| ------------------------- | ------------------------------ |
 | `query_available_coupons` | 查询麦麦省当前可用的优惠券列表 |
-| `auto_claim_coupons` | 一键领取所有可用的优惠券 |
-| `query_my_coupons` | 查询我的优惠券列表（已领取） |
-| `query_campaign_calendar` | 查询麦当劳活动日历 |
-| `get_current_time` | 获取服务器当前时间信息 |
+| `auto_claim_coupons`      | 一键领取所有可用的优惠券       |
+| `query_my_coupons`        | 查询我的优惠券列表（已领取）   |
+| `query_campaign_calendar` | 查询麦当劳活动日历             |
+| `get_current_time`        | 获取服务器当前时间信息         |
 
 ## MCP 资源列表
 
-| 资源 URI | 说明 |
-|----------|------|
+| 资源 URI                        | 说明                       |
+| ------------------------------- | -------------------------- |
 | `mcdonalds://coupons/available` | 获取可用优惠券（作为资源） |
-| `mcdonalds://coupons/mine` | 获取我的优惠券（作为资源） |
+| `mcdonalds://coupons/mine`      | 获取我的优惠券（作为资源） |
 
 ## 独立 CLI 工具
 
@@ -145,6 +165,7 @@ python mcdonalds_coupon.py
 ```
 
 运行后会显示交互式菜单，支持：
+
 1. 查询麦麦省券列表
 2. 一键领取优惠券
 3. 查询我的优惠券
